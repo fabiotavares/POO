@@ -65,9 +65,9 @@ if (isset($_REQUEST['ordem'])) {
 
     <body>
         <h2>Tabela de Clientes</h2>
-        <a href="<?php urlOrdenada('crescente') ?>">Crescente</a>
-         |
-        <a href="<?php urlOrdenada('decrescente') ?>">Decrescente</a>
+
+        <a href="<?php urlOrdenada('crescente') ?>" class="btn btn-small btn-primary disabled">Crescente</a>
+        <a href="<?php urlOrdenada('decrescente') ?>" class="btn btn-small btn-primary disabled">Decrescente</a>
 
         <table class="table table-striped">
             <thead>
