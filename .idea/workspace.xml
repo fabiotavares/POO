@@ -26,10 +26,8 @@
       <file leaf-file-name="index.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="19" selection-start="146" selection-end="155" vertical-scroll-proportion="-0.55307263" vertical-offset="597" max-vertical-offset="1530">
-              <folding>
-                <element signature="e#6#85#0" expanded="false" />
-              </folding>
+            <state line="10" column="14" selection-start="175" selection-end="175" vertical-scroll-proportion="0.18994413" vertical-offset="0" max-vertical-offset="895">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -221,13 +219,11 @@
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="65" column="24" selection-start="1807" selection-end="1807" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1615">
-          <folding>
-            <element signature="e#6#85#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/html5.html">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="42" selection-start="289" selection-end="289" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="408">
           <folding />
@@ -277,7 +273,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/html5.html">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.018994413" vertical-offset="0" max-vertical-offset="895">
           <folding />
@@ -286,10 +282,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="19" selection-start="146" selection-end="155" vertical-scroll-proportion="-0.55307263" vertical-offset="597" max-vertical-offset="1530">
-          <folding>
-            <element signature="e#6#85#0" expanded="false" />
-          </folding>
+        <state line="10" column="14" selection-start="175" selection-end="175" vertical-scroll-proportion="0.18994413" vertical-offset="0" max-vertical-offset="895">
+          <folding />
         </state>
       </provider>
     </entry>
