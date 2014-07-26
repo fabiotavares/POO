@@ -9,3 +9,5 @@ Code Education
 Observações
 ----
 - Abra o arquivo index.php na raiz
+- Utilize o link 'Exibir' para mostrar todos os atributos do cliente correspondente
+- Utilize os botões 'Crescente' e 'Decrescente' para ordenar a lista de acordo com o código do cliente
