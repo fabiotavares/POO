@@ -1,14 +1,38 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Fabio
- * Date: 25/07/14
- * Time: 10:40
- */
-session_start();
 
 require_once("src/dados.php");
 
+//obtém a url sem cliente selecionado, mantendo ordenação anterior
+$urlSemCliente = function () //retorna a url sem cliente, mantendo a ordem se houver
+{
+    if (isset($_REQUEST['ordem']) && !is_null(isset($_REQUEST['ordem']))) {
+        return '/?ordem=' . $_REQUEST['ordem'];
+    } else {
+        return '/';
+    }
+};
+
+//obtém a url com o cliente selecionado, mantendo ordenação anterior
+$urlComCliente = function ($cliente) //retorna a url sem cliente, mantendo a ordem se houver
+{
+    if (isset($_REQUEST['ordem']) && !is_null(isset($_REQUEST['ordem']))) {
+        return "/?ordem={$_REQUEST['ordem']}&clt={$cliente}";
+    } else {
+        return "/?clt={$cliente}";
+    }
+};
+
+//obtém url com a ordenação desejada, mantendo o cliente selecionado se houver
+function urlOrdenada($ordem)
+{
+    if (isset($_REQUEST['clt']) && !is_null(isset($_REQUEST['clt']))) {
+        echo "/?ordem={$ordem}&clt={$_REQUEST['clt']}";
+    } else {
+        echo "/?ordem={$ordem}";
+    }
+}
+
+//ordena o array conforme parâmetros passados via GET
 if (isset($_REQUEST['ordem'])) {
     if ($_REQUEST['ordem'] == 'decrescente') {
         krsort($clientes);
@@ -16,7 +40,7 @@ if (isset($_REQUEST['ordem'])) {
         ksort($clientes);
     }
 } else {
-    ksort($clientes);
+    ksort($clientes);//ordem padrão: crescente
 }
 
 ?>
@@ -35,56 +59,50 @@ if (isset($_REQUEST['ordem'])) {
 <div class="container">
 
     <div class="hero-unit">
-        <h2>Orientação a Objetos</h2>
-        <p>Manipulação de objetos em um array com PHP</p>
+        <h1>Orientação a Objetos</h1>
+        <h3>Manipulação de objetos em um array com PHP</h3>
     </div>
 
     <body>
-    <form class="navbar-form" role="searchForm" name="form1" method="get">
-        <fieldset>
-            <legend>Tabela de Clientes</legend>
-            <table class="table table-striped">
-                <thead>
+        <h2>Tabela de Clientes</h2>
+        <a href="<?php urlOrdenada('crescente') ?>">Crescente</a>
+         |
+        <a href="<?php urlOrdenada('decrescente') ?>">Decrescente</a>
+
+        <table class="table table-striped">
+            <thead>
                 <tr>
                     <th>#</th>
                     <th>Nome</th>
-                    <th>Email</th>
                     <th>Ação</th>
                 </tr>
-                </thead>
+            </thead>
 
-                <tbody>
+            <tbody>
                 <?php
-                foreach($clientes as $indice => $cliente) {
+                //exibe cada cliente do array, exibindo todos os dados para o cliente selecionado
+                foreach ($clientes as $indice => $cliente) {
                     if (isset($_REQUEST['clt']) && ($_REQUEST['clt'] == $indice)) {
                         echo "<tr class='info'>";
                         echo "<td>{$indice}</td>";
                         echo "<td>";
+                        //imprime dados do cliente
                         $cliente->imprimir();
                         echo "</td>";
-                        echo "<td>{$cliente->email}</td>";
-                        echo "<td><a href='/'>Ocultar</a></td>";
+                        echo "<td><a href='{$urlSemCliente()}'>Ocultar</a></td>";
                         echo "</tr>";
                     } else {
                         echo "<tr>";
-                        echo "<td>".$indice."</td>";
+                        echo "<td>" . $indice . "</td>";
                         echo "<td>{$cliente->nome}</td>";
-                        echo "<td>{$cliente->email}</td>";
-                        echo "<td><a href='?clt=".$indice."'>Exibir</a></td>";
+                        echo "<td><a href='{$urlComCliente($indice)}'>Exibir</a></td>";
                         echo "</tr>";
                     }
                 }
                 ?>
-                </tbody>
-            </table>
-
-            <input type="submit" name="ordem" value="crescente" class="btn btn-primary">
-            <input type="submit" name="ordem" value="decrescente" class="btn btn-primary">
-        </fieldset>
-    </form>
-
+            </tbody>
+        </table
     </body>
-
 </div>
 
 </html>
