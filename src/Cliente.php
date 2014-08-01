@@ -1,66 +1,99 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Fabio
- * Date: 25/07/14
- * Time: 10:31
- */
 
-class Cliente {
-    public $nome;
-    public $email;
-    public $cpf;
-    public $nascimento;
-    public $endereco;
-    public $numero;
-    public $bairro;
-    public $cidade;
-    public $estado;
-    public $telefone;
+class Cliente
+{
+    protected $id;
+    protected $email;
+    protected $telefone;
+    protected $enderecoPrincipal;
+    protected $enderecoCobranca = null; //endereço de cobrança pode ser nulo
+    protected $enderecosIguais = true; //diz se endereco e enderecoCobranca são iguais
+    protected $classe = 1; //1, 2, 3, 4 ou 5 estrelas (valor inicial padrão = 1)
 
-    //construtor
-    public function __construct($nome, $email, $cpf, $nascimento, $endereco, $numero, $bairro, $cidade, $estado, $telefone)
+    //getters e setters:
+
+    public function setClasse($classe)
     {
-        //inicialização dos atributos
-        $this->nome = $nome;
+        //validação
+        if(is_integer($classe) && ($classe > 0) && ( $classe <= 5)) {
+            $this->classe = $classe;
+        }
+        return $this;
+    }
+
+    public function getClasse()
+    {
+        return $this->classe;
+    }
+
+    public function setEmail($email)
+    {
         $this->email = $email;
-        $this->cpf = $cpf;
-        $this->nascimento = $nascimento;
-        $this->endereco = $endereco;
-        $this->numero = $numero;
-        $this->bairro = $bairro;
-        $this->cidade = $cidade;
-        $this->estado = $estado;
-        $this->telefone = $telefone;
+        return $this;
     }
 
-    //método que imprime atributos do cliente
-    public function imprimir()
+    public function getEmail()
     {
-        echo "<strong>".$this->nome."</strong>";
-        echo "<table class='table table-condensed'>";
-
-        echo "<tr><td>Email: </td>";
-        echo "<td>{$this->email}</td></tr>";
-
-        echo "<tr><td>CPF: </td>";
-        echo "<td>{$this->cpf}</td></tr>";
-
-        echo "<tr><td>Nascimento: </td>";
-        echo "<td>{$this->nascimento}</td></tr>";
-
-        echo "<tr><td>Endereço: </td>";
-        echo "<td>{$this->endereco}, n° {$this->numero}</td></tr>";
-
-        echo "<tr><td>Bairro: </td>";
-        echo "<td>{$this->bairro}</td></tr>";
-
-        echo "<tr><td>Cidade/UF: </td>";
-        echo "<td>{$this->cidade}/{$this->estado}</td></tr>";
-
-        echo "<tr><td>Telefone: </td>";
-        echo "<td>{$this->telefone}</td></tr>";
-
-        echo "</table>";
+        return $this->email;
     }
+
+    public function setEnderecoPrincipal($endereco)
+    {
+        $this->enderecoPrincipal = $endereco;
+        return $this;
+    }
+
+    public function getEnderecoPrincipal()
+    {
+        return $this->enderecoPrincipal;
+    }
+
+    public function setEnderecoCobranca($endereco)
+    {
+        $this->enderecoCobranca = $endereco;
+        return $this;
+    }
+
+    public function getEnderecoCobranca()
+    {
+        return $this->enderecoCobranca;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setTelefone($telefone)
+    {
+        $this->telefone = $telefone;
+        return $this;
+    }
+
+    public function getTelefone()
+    {
+        return $this->telefone;
+    }
+
+    public function setEnderecosIguais($enderecosIguais)
+    {
+        //validação
+        if(is_bool($enderecosIguais)) {
+            $this->enderecosIguais = $enderecosIguais;
+        }
+        return $this;
+    }
+
+    public function getEnderecosIguais()
+    {
+        return $this->enderecosIguais;
+    }
+
+
 } 

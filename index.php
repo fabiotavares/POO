@@ -1,104 +1,79 @@
 <?php
+session_start();
 
 require_once("src/dados.php");
-
-//obtém a url sem cliente selecionado, mantendo ordenação anterior
-$urlSemCliente = function () //retorna a url sem cliente, mantendo a ordem se houver
-{
-    if (isset($_REQUEST['ordem']) && !is_null(isset($_REQUEST['ordem']))) {
-        return '/?ordem=' . $_REQUEST['ordem'];
-    } else {
-        return '/';
-    }
-};
-
-//obtém a url com o cliente selecionado, mantendo ordenação anterior
-$urlComCliente = function ($cliente) //retorna a url sem cliente, mantendo a ordem se houver
-{
-    if (isset($_REQUEST['ordem']) && !is_null(isset($_REQUEST['ordem']))) {
-        return "/?ordem={$_REQUEST['ordem']}&clt={$cliente}";
-    } else {
-        return "/?clt={$cliente}";
-    }
-};
-
-//obtém url com a ordenação desejada, mantendo o cliente selecionado se houver
-function urlOrdenada($ordem)
-{
-    if (isset($_REQUEST['clt']) && !is_null(isset($_REQUEST['clt']))) {
-        echo "/?ordem={$ordem}&clt={$_REQUEST['clt']}";
-    } else {
-        echo "/?ordem={$ordem}";
-    }
-}
-
-//ordena o array conforme parâmetros passados via GET
-if (isset($_REQUEST['ordem'])) {
-    if ($_REQUEST['ordem'] == 'decrescente') {
-        krsort($clientes);
-    } else {
-        ksort($clientes);
-    }
-} else {
-    ksort($clientes);//ordem padrão: crescente
-}
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <title>Orientação a Objetos 1 - Fábio Tavares</title>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+    <title>POO - Code.Education</title>
+    <meta charset="UTF-8"/>
     <!-- Bootstrap -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
 </head>
 
 <div class="container">
 
     <div class="hero-unit">
-        <h1>Orientação a Objetos</h1>
-        <h3>Manipulação de objetos em um array com PHP</h3>
+        <h3>PHP: Programação Orientada a Objetos</h3>
+        <h4>Projeto Fase 2 - Fábio Tavares</h4>
     </div>
 
     <body>
-        <h2>Tabela de Clientes</h2>
 
-        <a href="<?php urlOrdenada('crescente') ?>" class="btn btn-small btn-primary disabled">Crescente</a>
-        <a href="<?php urlOrdenada('decrescente') ?>" class="btn btn-small btn-primary disabled">Decrescente</a>
+        <form method="get" action="src/page/ordena_lista.php">
+            <fieldset>
+                <legend>Tabela de Clientes</legend>
+                <label>Ordenar por:
+                <select name="ordem" onchange="form.submit();">
+                    <option value="id_c" <?php getSelected('id_c'); ?>>Id (crescente)</option>
+                    <option value="id_d" <?php getSelected('id_d'); ?>>Id (decrescente)</option>
+                    <option value="nome_c" <?php getSelected('nome_c'); ?>>Nome (crescente)</option>
+                    <option value="nome_d" <?php getSelected('nome_d'); ?>>Nome (decrescente)</option>
+                    <option value="tipo_c" <?php getSelected('tipo_c'); ?>>Tipo (crescente)</option>
+                    <option value="tipo_d" <?php getSelected('tipo_d'); ?>>Tipo (decrescente)</option>
+                    <option value="classe_c" <?php getSelected('classe_c'); ?>>Classe (crescente)</option>
+                    <option value="classe_d" <?php getSelected('classe_d'); ?>>Classe (decrescente)</option>
+                </select></label>
+            </fieldset>
+        </form>
 
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>Id</th>
                     <th>Nome</th>
-                    <th>Ação</th>
+                    <th>Tipo</th>
+                    <th>Classe</th>
                 </tr>
             </thead>
 
             <tbody>
                 <?php
-                //exibe cada cliente do array, exibindo todos os dados para o cliente selecionado
-                foreach ($clientes as $indice => $cliente) {
-                    if (isset($_REQUEST['clt']) && ($_REQUEST['clt'] == $indice)) {
-                        echo "<tr class='info'>";
-                        echo "<td>{$indice}</td>";
-                        echo "<td>";
-                        //imprime dados do cliente
-                        $cliente->imprimir();
-                        echo "</td>";
-                        echo "<td><a href='{$urlSemCliente()}'>Ocultar</a></td>";
-                        echo "</tr>";
-                    } else {
-                        echo "<tr>";
-                        echo "<td>" . $indice . "</td>";
-                        echo "<td>{$cliente->nome}</td>";
-                        echo "<td><a href='{$urlComCliente($indice)}'>Exibir</a></td>";
-                        echo "</tr>";
+                    //exibe cada cliente do array, exibindo todos os dados para o cliente selecionado
+                    foreach ($clientes as $cliente) {
+                        //verifica se deve exibir cadastro completo
+                        if(isset($_SESSION['id']) && ($_SESSION['id'] == $cliente->getId())) {
+                            //imprime a linha com uma cor de destaque
+                            echo "<tr class='success'><td>".$cliente->getId()."</td>";
+                            //imprime nome do cliente
+                            echo "<td><b><a href='src/page/seleciona_cliente.php'>".$cliente->getNome()."</a></b><br/>";
+                            //imprime cadastro completo do cliente
+                            $cliente->imprimeCliente();
+                            echo "</td>";
+                        } else {
+                            echo "<tr><td>".$cliente->getId()."</td>";
+                            //imprime nome do cliente com link para seu id
+                            echo "<td><a href='src/page/seleciona_cliente.php?id=".$cliente->getId()."'>".$cliente->getNome()."</a></td>";
+                        }
+
+                        echo "<td>".$cliente->getTipoCliente()."</td>";
+                        echo "<td>".getEstrelas($cliente->getClasse())."</td></tr>";
                     }
-                }
                 ?>
             </tbody>
         </table

@@ -1,42 +1,408 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Fabio
- * Date: 25/07/14
- * Time: 12:49
- */
 
 require_once("Cliente.php");
+require_once("ClientePessoaFisica.php");
+require_once("ClientePessoaJuridica.php");
+require_once("Endereco.php");
 
-//Criando array com 10 objetos de Cliente
-$clientes = [
-    1 => new Cliente("Fabio Tavares", "fabio@gmail.com", "111.111.111-11", "25/10/1972",
-            "Rua Jose Grillo", 52, "centro", "Espera Feliz", "MG", "(32) 1111-1111"),
+//Criando 10 objetos clientes (pessoa física e jurídica) e inserindo em um array para manipulação
 
-    2 => new Cliente("Raquel Garcia Tavares", "raquel@gmail.com", "222.222.222-22", "03/12/1973",
-            "Rua Gregorio", 135, "centro", "Carangola", "MG", "(47) 2222-2222"),
+//...............................................CLIENTE 01 (FÍSICA)
+$cliente = new ClientePessoaFisica();
+$endereco1 = new Endereco();
+$endereco2 = new Endereco();
 
-    3 => new Cliente("Gabriela Garcia", "gabi@hotmail.com", "444.123.432-11", "30/07/2003",
-            "Rua dos Estudantes", 25, "centro", "Caiana", "MG", "(56) 1111-3333"),
+$endereco1
+    ->setTipo(2) //apartamento
+    ->setLogradouro("Rua Jose Grillo")
+    ->setNumero(52)
+    ->setBairro("Centro")
+    ->setCidade("Espera Feliz")
+    ->setEstado("MG")
+    ->setCep("36830-000");
 
-    4 => new Cliente("Rafael Pinheiro", "rafa@uol.com.br", "123.123.345-22", "22/02/2006",
-            "Av dos Andradas", 13, "Serra", "Belo Horizonte", "MG", "(11) 2222-4444"),
+$endereco2
+    ->setTipo(1) //casa
+    ->setLogradouro("Rua Gregorio Duarte")
+    ->setNumero(135)
+    ->setBairro("Centro")
+    ->setCidade("Espera Feliz")
+    ->setEstado("MG")
+    ->setCep("36830-000");
 
-    5 => new Cliente("Sandro Pereira", "sanira@gmail.com", "678.543.211-23", "25/04/1980",
-            "Pça da Bandeira", 78, "Sete", "Rio de Janeiro", "RJ", "(33) 2323-5555"),
+$cliente
+    ->setId(1)
+    ->setNome("Fabio Tavares")
+    ->setEmail("fabio@gmail.com")
+    ->setCpf("111.111.111-11")
+    ->setNascimento("25/10/1972")
+    ->setSexo("Masculino")
+    ->setTelefone("(32) 1111-1111")
+    ->setEnderecoPrincipal($endereco1)
+    ->setEnderecoCobranca($endereco2)
+    ->setEnderecosIguais(false) //endereco de cobranca é diferente
+    ->setClasse(5);
 
-    6 => new Cliente("Gustavo Deboçan", "tavinho@gmail.com", "678.876.890-34", "12/10/1987",
-            "Faz dos Lopes, ZR", 0, "Estrela", "Cachoeiro do Itapemirim", "ES", "(23) 1234-4321"),
+//inserindo cliente no array
+$clientes = [$cliente]; //primeiro elemento
 
-    7 => new Cliente("Dayane Pinheiro", "dayoinheiro@gmail.com", "333.444.555-66", "23/09/2000",
-            "Rua dos Perdidos", 567, "Campestre", "Muriaé", "MG", "(11) 3456-6543"),
+//...............................................CLIENTE 02 (FÍSICA)
+$cliente = new ClientePessoaFisica();
+$endereco1 = new Endereco(); //apenas um endereço cadastrado = cobrança
 
-    8 => new Cliente("Marília Tavares", "mtavares@gmail.com", "231.456.222-35", "04/11/1969",
-            "Rua Sem Saída", 111, "centro", "Itaperuna", "RJ", "(21) 5678-9876"),
+$endereco1
+    ->setTipo(1) //casa
+    ->setLogradouro("Rua Gregorio Antônio")
+    ->setNumero(135)
+    ->setBairro("Centro")
+    ->setCidade("Carangola")
+    ->setEstado("MG")
+    ->setCep("36880-000");
 
-    9 => new Cliente("Rosalina Breder", "rosalina@gmail.com", "567.333.222-22", "09/12/1977",
-            "Rua Brilhante", 234, "centro", "Sorocaba", "SP", "(14) 6547-7334"),
+$cliente
+    ->setId(2)
+    ->setNome("Raquel Garcia Tavares")
+    ->setEmail("raquel@gmail.com")
+    ->setCpf("222.222.222-22")
+    ->setNascimento("03/12/1973")
+    ->setSexo("Feminino")
+    ->setTelefone("(47) 2222-2222")
+    ->setEnderecoPrincipal($endereco1)
+    ->setClasse(4);
 
-    10 => new Cliente("Maria Lucia", "mlucia@gmail.com", "234.123.765.-59", "23/04/1934",
-            "Rua Paulo Afonso", 1234, "Patronato", "Leopoldina", "MG", "(34) 3445-3333")
-];
+//inserindo cliente no array
+array_push($clientes, $cliente);
+
+//...............................................CLIENTE 03 (FÍSICA)
+$cliente = new ClientePessoaFisica();
+$endereco1 = new Endereco();
+
+$endereco1
+    ->setTipo(4) //outros
+    ->setLogradouro("Rua dos Estudantes")
+    ->setNumero(25)
+    ->setBairro("Centro")
+    ->setCidade("Caiana")
+    ->setEstado("MG")
+    ->setCep("37845-970");
+
+$cliente
+    ->setId(3)
+    ->setNome("Gabriela Garcia")
+    ->setEmail("gabi@hotmail.com")
+    ->setCpf("444.123.432-11")
+    ->setNascimento("30/07/2003")
+    ->setSexo("Feminino")
+    ->setTelefone("(56) 1111-3333")
+    ->setEnderecoPrincipal($endereco1)
+    ->setClasse(4);
+
+//inserindo cliente no array
+array_push($clientes, $cliente);
+
+//...............................................CLIENTE 04 (FÍSICA)
+$cliente = new ClientePessoaFisica();
+$endereco1 = new Endereco();
+$endereco2 = new Endereco();
+
+$endereco1
+    ->setTipo(2) //apartamento
+    ->setLogradouro("Av dos Andradas")
+    ->setNumero(13)
+    ->setBairro("Serra")
+    ->setCidade("Belo Horizonte")
+    ->setEstado("MG")
+    ->setCep("34876-345");
+
+$endereco2
+    ->setTipo(3) //comercial
+    ->setLogradouro("Rua das Travessas")
+    ->setNumero(1234)
+    ->setBairro("Claudio Afonso")
+    ->setCidade("Guaçuí")
+    ->setEstado("ES")
+    ->setCep("23456-765");
+
+$cliente
+    ->setId(4)
+    ->setNome("Rafael Garcia Tavares")
+    ->setEmail("rafa@uol.com.br")
+    ->setCpf("123.123.345-22")
+    ->setNascimento("22/02/2006")
+    ->setSexo("Masculino")
+    ->setTelefone("(11) 2222-4444")
+    ->setEnderecoPrincipal($endereco1)
+    ->setEnderecoCobranca($endereco2)
+    ->setEnderecosIguais(false) //endereco de cobranca é diferente
+    ->setClasse(5);
+
+//inserindo cliente no array
+array_push($clientes, $cliente);
+
+//...............................................CLIENTE 05 (FÍSICA)
+$cliente = new ClientePessoaFisica();
+$endereco1 = new Endereco();
+$endereco2 = new Endereco();
+
+$endereco1
+    ->setTipo(4) //outros
+    ->setLogradouro("Pça da Bandeira")
+    ->setNumero(78)
+    ->setBairro("Sete de Setembro")
+    ->setCidade("Rio de Janeiro")
+    ->setEstado("RJ")
+    ->setCep("09865-890");
+
+$endereco2
+    ->setTipo(1) //casa
+    ->setLogradouro("Pça dos Songamongas")
+    ->setNumero(76)
+    ->setBairro("Perdido")
+    ->setCidade("Viçosa")
+    ->setEstado("MG")
+    ->setCep("39098-789");
+
+$cliente
+    ->setId(5)
+    ->setNome("Sandro Pereira")
+    ->setEmail("sanira@gmail.com")
+    ->setCpf("678.543.211-23")
+    ->setNascimento("25/04/1980")
+    ->setSexo("M")
+    ->setTelefone("(33) 2323-5555")
+    ->setEnderecoPrincipal($endereco1)
+    ->setEnderecoCobranca($endereco2)
+    ->setEnderecosIguais(false) //endereco de cobranca diferente do endereco principal
+    ->setClasse(1);
+
+//inserindo cliente no array
+array_push($clientes, $cliente);
+
+//...............................................CLIENTE 06 (JURÍDICA)
+$cliente = new ClientePessoaJuridica();
+$endereco1 = new Endereco();
+$endereco2 = new Endereco();
+
+$endereco1
+    ->setTipo(3) //comercial
+    ->setLogradouro("Rua das Congregações")
+    ->setNumero(1234)
+    ->setBairro("Jardim Florido")
+    ->setCidade("São Paulo")
+    ->setEstado("SP")
+    ->setCep("11234-098");
+
+$endereco2
+    ->setTipo(3) //comercial
+    ->setLogradouro("Av das Marias")
+    ->setNumero(234)
+    ->setBairro("Centro")
+    ->setCidade("Marília")
+    ->setEstado("SP")
+    ->setCep("45098-476");
+
+$cliente
+    ->setId(10)
+    ->setRazaoSocial("Comércio de Café Ltda")
+    ->setEmail("ccafe@gmail.com")
+    ->setCnpj("11.234.567/001-23")
+    ->setTelefone("(65) 7654-9876")
+    ->setEnderecoPrincipal($endereco1)
+    ->setEnderecoCobranca($endereco2)
+    ->setEnderecosIguais(false) //endereco de cobranca é diferente
+    ->setClasse(2);
+
+//inserindo cliente no array
+array_push($clientes, $cliente);
+
+//...............................................CLIENTE 07 (JURÍDICA)
+$cliente = new ClientePessoaJuridica();
+$endereco1 = new Endereco();
+
+$endereco1
+    ->setTipo(3) //comercial
+    ->setLogradouro("Av dos Coqueiros")
+    ->setNumero(34)
+    ->setBairro("Prado")
+    ->setCidade("Belo Horizonte")
+    ->setEstado("MG")
+    ->setCep("45623-000");
+
+$cliente
+    ->setId(9)
+    ->setRazaoSocial("Papelaria Traço Fino SA")
+    ->setEmail("tracofino@yahoo.com.br")
+    ->setCnpj("34.444.222/001-24")
+    ->setTelefone("(31) 2222-1111")
+    ->setEnderecoPrincipal($endereco1)
+    ->setClasse(5);
+
+//inserindo cliente no array
+array_push($clientes, $cliente);
+
+//...............................................CLIENTE 08 (JURÍDICA)
+$cliente = new ClientePessoaJuridica();
+$endereco1 = new Endereco();
+
+$endereco1
+    ->setTipo(4) //outros
+    ->setLogradouro("Rua dos Periquitos Voadores")
+    ->setNumero(234)
+    ->setBairro("Centro")
+    ->setCidade("Carangola")
+    ->setEstado("MG")
+    ->setCep("36880-000");
+
+$cliente
+    ->setId(8)
+    ->setRazaoSocial("Padaria 100 Pão")
+    ->setEmail("paochique@gmail.com")
+    ->setCnpj("33.222.111/001-76")
+    ->setTelefone("(32) 3741-1111")
+    ->setEnderecoPrincipal($endereco1)
+    ->setClasse(3);
+
+//inserindo cliente no array
+array_push($clientes, $cliente);
+
+//...............................................CLIENTE 09 (JURÍDICA)
+$cliente = new ClientePessoaJuridica();
+$endereco1 = new Endereco();
+
+$endereco1
+    ->setTipo(3) //comercial
+    ->setLogradouro("Rua das Indústrias")
+    ->setNumero(98)
+    ->setBairro("Centro")
+    ->setCidade("Manhumirim")
+    ->setEstado("MG")
+    ->setCep("36330-040");
+
+$cliente
+    ->setId(7)
+    ->setRazaoSocial("Açougue Dois Irmãos")
+    ->setEmail("carnedura@gmail.com")
+    ->setCnpj("44.234.678/001-22")
+    ->setTelefone("(21) 92222-1111")
+    ->setEnderecoPrincipal($endereco1)
+    ->setClasse(1);
+
+//inserindo cliente no array
+array_push($clientes, $cliente);
+
+//...............................................CLIENTE 10 (JURÍDICA)
+$cliente = new ClientePessoaJuridica();
+$endereco1 = new Endereco();
+
+$endereco1
+    ->setTipo(3) //comercial
+    ->setLogradouro("Av das Bruxas")
+    ->setNumero(234)
+    ->setBairro("Centro")
+    ->setCidade("Caracas")
+    ->setEstado("PR")
+    ->setCep("33445-000");
+
+$cliente
+    ->setId(6)
+    ->setRazaoSocial("Informática Fácil")
+    ->setEmail("infofacil@gmail.com")
+    ->setCnpj("87.345.098/004-09")
+    ->setTelefone("(45) 1234-4321")
+    ->setEnderecoPrincipal($endereco1)
+    ->setClasse(3);
+
+//inserindo cliente no array
+array_push($clientes, $cliente);
+
+//...............................................FIM DADOS
+
+//função que verifica a precedência de dois clientes,
+//com base no atributo passado na requisição: $_REQUEST['coluna'] e $_REQUEST['ordem']
+function verificador($cliente1, $cliente2)
+{
+    //valores padrão: ordenação crescente pelo nome
+    $valor1 = $cliente1->getNome();
+    $valor2 = $cliente2->getNome();
+    $ordem = 1;
+
+    //verifica se existe uma solicitação de classificação
+    if (isset($_SESSION['ordem'])) {
+        //descobre a ordem solicitada
+        if ($_SESSION['ordem'] == 'id_c') {
+            $valor1 = $cliente1->getId();
+            $valor2 = $cliente2->getId();
+            $ordem = 1;
+        } elseif ($_SESSION['ordem'] == 'id_d') {
+            $valor1 = $cliente1->getId();
+            $valor2 = $cliente2->getId();
+            $ordem = -1;
+        } elseif ($_SESSION['ordem'] == 'nome_c') {
+            $valor1 = $cliente1->getNome();
+            $valor2 = $cliente2->getNome();
+            $ordem = 1;
+        } elseif ($_SESSION['ordem'] == 'nome_d') {
+            $valor1 = $cliente1->getNome();
+            $valor2 = $cliente2->getNome();
+            $ordem = -1;
+        } elseif ($_SESSION['ordem'] == 'tipo_c') {
+            $valor1 = $cliente1->getTipoCliente();
+            $valor2 = $cliente2->getTipoCliente();
+            $ordem = 1;
+        } elseif ($_SESSION['ordem'] == 'tipo_d') {
+            $valor1 = $cliente1->getTipoCliente();
+            $valor2 = $cliente2->getTipoCliente();
+            $ordem = -1;
+        } elseif ($_SESSION['ordem'] == 'classe_c') {
+            $valor1 = $cliente1->getClasse();
+            $valor2 = $cliente2->getClasse();
+            $ordem = 1;
+        } elseif ($_SESSION['ordem'] == 'classe_d') {
+            $valor1 = $cliente1->getClasse();
+            $valor2 = $cliente2->getClasse();
+            $ordem = -1;
+        }
+    }
+
+    //calcula a relação de precedência
+    if ($valor1 < $valor2) {
+        return -1 * $ordem;
+    } elseif ($valor1 > $valor2) {
+        return 1 * $ordem;
+    }
+    return 0;
+}
+
+//faça a ordenação
+usort($clientes, 'verificador');
+
+//função auxiliar para manter a opção selecionada pelo cliente anteriormente
+function getSelected($nome)
+{
+    if (isset($_SESSION['ordem']) && ($_SESSION['ordem'] == $nome)) {
+        echo "selected";
+    } elseif(!isset($_SESSION['ordem']) && ($nome == 'nome_c')) {
+        echo "selected";
+    }
+}
+
+//função para imprimir ícones de estrelas para o valor de classe
+function getEstrelas($estrelas)
+{
+    //imprime as estrelas cheias passadas no parâmetro
+    $nota = "";
+    for($i=1; $i<= $estrelas; $i++) {
+        $nota .= "<i class='icon-star'></i>";
+    }
+    //imprime as estrelas vazias, se houver
+    for($i=$estrelas+1; $i<=5; $i++) {
+        $nota .= "<i class='icon-star-empty'></i>";
+    }
+
+    return $nota;
+}
+
+
+
+
+
