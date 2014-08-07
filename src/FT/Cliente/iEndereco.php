@@ -1,5 +1,7 @@
 <?php
 
+namespace FT\Cliente;
+
 interface iEndereco 
 {
     public function imprimeEnderecoPrincipal(); //imprime endereço principal completo

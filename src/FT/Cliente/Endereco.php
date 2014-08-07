@@ -1,5 +1,7 @@
 <?php
 
+namespace FT\Cliente;
+
 class Endereco
 {
     protected $tipo; //1=casa, 2=apartamento, 3=comercial, 4=outros
@@ -10,7 +12,8 @@ class Endereco
     protected $cidade;
     protected $estado;
 
-    //getters e setters:
+    /*getters e setters:
+    ********************************************************************/
 
     public function setBairro($bairro)
     {

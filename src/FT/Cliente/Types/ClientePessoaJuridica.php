@@ -1,17 +1,42 @@
 <?php
 
-require_once("Cliente.php");
-require_once("iCliente.php");
-require_once("iEndereco.php");
+namespace FT\Cliente\Types;
 
-class ClientePessoaJuridica extends Cliente implements iCliente, iEndereco
+use FT\Cliente\ClienteAbstract;
+
+class ClientePessoaJuridica extends ClienteAbstract
 {
     protected $razaoSocial;
     protected $cnpj;
 
-    //implementação das interfaces
+    /*getters e setters
+    ********************************************************************/
 
-    //interface iCliente
+    public function setCnpj($cnpj)
+    {
+        $this->cnpj = $cnpj;
+        return $this;
+    }
+
+    public function getCnpj()
+    {
+        return $this->cnpj;
+    }
+
+    public function setRazaoSocial($razaoSocial)
+    {
+        $this->razaoSocial = $razaoSocial;
+        return $this;
+    }
+
+    public function getRazaoSocial()
+    {
+        return $this->razaoSocial;
+    }
+
+
+    /*classe abastrata Cliente
+    ********************************************************************/
 
     public function getNome()
     {
@@ -27,7 +52,7 @@ class ClientePessoaJuridica extends Cliente implements iCliente, iEndereco
         echo "<tr><td style='text-align: right'>CNPJ: </td><td>".$this->getCnpj()."</td></tr>";
         echo "<tr><td style='text-align: right'>Email: </td><td>".$this->getEmail()."</td></tr>";
         echo "<tr><td style='text-align: right'>Telefone: </td><td>".$this->getTelefone()."</td></tr>";
-        echo "<tr><td style='text-align: right'>Classe: </td><td>".$this->getClasse()." estrelas</td></tr>";
+        echo "<tr><td style='text-align: right'>Classe: </td><td>".$this->getClasseStars()."</td></tr>";
         echo "<tr><td style='text-align: right; vertical-align: top'>Endereço Principal: </td><td>";
         $this->imprimeEnderecoPrincipal();
         echo "</td></tr>";
@@ -58,51 +83,5 @@ class ClientePessoaJuridica extends Cliente implements iCliente, iEndereco
     {
         $classe = parent::getClasse() - 1;
         return parent::setClasse($classe);
-    }
-
-    //interface iEndereco
-
-    public function imprimeEnderecoPrincipal()
-    {
-        parent::getEnderecoPrincipal()->imprimeEndereco();
-    }
-
-    public function imprimeEnderecoCobranca()
-    {
-        parent::getEnderecoCobranca()->imprimeEndereco();
-    }
-
-    public function getTipoEnderecoPrincipal()
-    {
-        return parent::getEnderecoPrincipal()->getTipo();
-    }
-
-    public function getTipoEnderecoCobranca()
-    {
-        return parent::getEnderecoCobranca()->getTipo();
-    }
-
-    //getters e setters
-
-    public function setCnpj($cnpj)
-    {
-        $this->cnpj = $cnpj;
-        return $this;
-    }
-
-    public function getCnpj()
-    {
-        return $this->cnpj;
-    }
-
-    public function setRazaoSocial($razaoSocial)
-    {
-        $this->razaoSocial = $razaoSocial;
-        return $this;
-    }
-
-    public function getRazaoSocial()
-    {
-        return $this->razaoSocial;
     }
 } 
