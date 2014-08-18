@@ -4,13 +4,25 @@ define('CLASS_DIR', '../src/');
 set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
 spl_autoload_register();
 
-require_once('../src/FT/Cliente/Util/dados.php');
-$clientes = getClientes();
-usort($clientes, 'verificador');
+use \FT\Cliente\Util\Clientes;
+require_once('../src/FT/Cliente/Util/conexao.php');
 
+//definindo a ordem de apresentação dos clientes
+if(isset($_REQUEST['ord'])) {
+    //obtém a ordem prédefinida
+    $ord = $_REQUEST['ord'];
+} else {
+    //define a ordem padrão
+    $ord = 'idc';
+}
+
+//obtém um array de objetos de clientes na ordem definida
+$clientes = Clientes::getClientes($conn, $ord);
+
+//gera uma url do tipo get contendo a ordem escolhida
 function setOrdem($ord)
 {
-    //monte a url com as variáveis ord e id, conforme a necessidade
+    //monte a url com as variáveis ord e id, conforme a necessidade, mantendo o cliente caso exista
     if(is_null($ord)) {
         $url = "/";
     } else {
@@ -28,6 +40,7 @@ function setOrdem($ord)
     return $url;
 }
 
+//gera uma url contendo a identificação do cliente selecionado, mantendo a ordem caso exista
 function setCliente($id)
 {
     //monte a url com as variáveis ord e id, conforme a necessidade
@@ -75,7 +88,7 @@ function isOrdemSelecionada($ord)
     <body>
     <div class="hero-unit">
         <h2>PHP: Programação Orientada a Objetos</h2>
-        <h2><small>Projeto Fase 3 - Fábio Tavares</small></h2>
+        <h2><small>Projeto Fase 4 - Fábio Tavares</small></h2>
     </div>
 
     <div class="page-header" style="margin-bottom: 10px">

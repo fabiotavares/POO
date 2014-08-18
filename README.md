@@ -1,16 +1,25 @@
 Code Education
 ----
 - Módulo: Orientação a Objetos
-- Projeto Fase: III
+- Projeto Fase: IV
 - Autor: Fábio Tavares
-- Data: 07/08/2014
+- Data: 18/08/2014
 
-Observações
+Observações Gerais
 ----
-- O projeto utiliza os conceitos de classe, classe abstrata, herança e interface
-- Foram utilizados getters, setters e modificadores de acesso para os atributos
-- Utilizamos também o conceito de interface fluente para cadastrar os clientes de teste
-- Para visualizar, abra o arquivo index.php na raiz
+- Nesta fase, foi utilizado persistência em banco de dados MySQL para os clientes
+- O banco criado (poo) contém duas tabelas associadas: clientes e endereços
+- Foi decidido criar apenas uma tabela para clientes pf e pj
+- utilizamos o conceito de encapsulamento sem um forte acoplamento (usando-se injeção de dependência)
+- Outros conceitos usados: classe abstrata, trait, static, herança, interface e interface fluente
+
+Gerando Dados
+----
+- Para a criação dos dados de testes, basta executar o arquivo fixtures.php na raiz do projeto
+
+Executando o Projeto
+----
+- Para visualizar o site, abra o arquivo index.php na pasta web
 - Utilize o botão superior ordenar a tabela de clientes
 - Clique no nome do cliente para exibir seu cadastro completo
 - Clique novamente no nome para ocultar detalhes

@@ -18,7 +18,7 @@ abstract class ClienteAbstract implements iEndereco
     public function setClasse($classe)
     {
         //validação
-        if(is_integer($classe) && ($classe > 0) && ( $classe <= 5)) {
+        if(is_numeric($classe) && ($classe > 0) && ( $classe <= 5)) {
             $this->classe = $classe;
         }
         return $this;
@@ -104,9 +104,8 @@ abstract class ClienteAbstract implements iEndereco
     public function setEnderecosIguais($enderecosIguais)
     {
         //validação
-        if(is_bool($enderecosIguais)) {
-            $this->enderecosIguais = $enderecosIguais;
-        }
+        $this->enderecosIguais = $enderecosIguais;
+
         return $this;
     }
 

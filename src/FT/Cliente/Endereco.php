@@ -90,6 +90,11 @@ class Endereco
         return $this;
     }
 
+    public function getTipoInt()
+    {
+       return $this->tipo;
+    }
+
     public function getTipo()
     {
         switch ($this->tipo) {
